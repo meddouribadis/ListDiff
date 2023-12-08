@@ -90,6 +90,20 @@ export default function ListCompare() {
         setList(c);
     }
 
+    const formatList = (list, setList) => {
+        if (!list || list.length === 0) {
+            setList("");
+            return;
+        }
+        let myList = list.replace(/\r?\n$/, "");
+        let myListArray = myList.split(/\r?\n/);
+        myListArray = myListArray.map(((e) => {
+            return "'" + e + "',";
+        }))
+        let c = myListArray.join("\n");
+        setList(c);
+    }
+
     const swapList = () => {
         let temp = listA;
         setListA(listB);
@@ -131,7 +145,7 @@ export default function ListCompare() {
                                 </button>
                             </div>
                             <div className="col-span-2 text-right">
-                                <button title="Test" className="bg-blue-500 mr-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                <button onClick={() => formatList(listA, setListA)} title="Formatter" className="bg-blue-500 mr-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     <MdPlaylistRemove size={24} />
                                 </button>
                                 <button title="Supprimer les espaces et les doublons" onClick={() => removeDuplicates(listA, setListA)} className="bg-blue-500 mr-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -155,7 +169,7 @@ export default function ListCompare() {
                 </div>
 
                 <div className="list-b">
-                <div className="w-full p-4 border border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
+                    <div className="w-full p-4 border border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
                         <div className="grid grid-cols-2 justify-between text-lg header">
                             <div className="title text-left">
                                 <p>List B</p>
